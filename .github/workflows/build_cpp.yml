@@ -5,7 +5,7 @@ on:
       whisper_cpp_repo:
         description: 'whisper.cpp repo link'
         required: true
-        default: 'nickprosper/whisper.cpp'
+        default: 'ggerganov/whisper.cpp'
       whisper_cpp_repo_ref:
         description: 'Tag, branch or commit'
         required: true
