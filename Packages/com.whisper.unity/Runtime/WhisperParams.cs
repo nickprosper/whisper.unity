@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using Whisper.Native;
 using Whisper.Utils;
+using UnityEngine;
 
 namespace Whisper
 {
@@ -395,11 +396,8 @@ namespace Whisper
                  PrintTimestamps = false
              };
 
-             // for some reason on android one thread works
-             // 10x faster than multithreading
-#if UNITY_ANDROID && !UNITY_EDITOR
-             param.ThreadsCount = 1;
-#endif
+             param.ThreadsCount = SystemInfo.processorCount;
+
              return param;
          }
      }   
