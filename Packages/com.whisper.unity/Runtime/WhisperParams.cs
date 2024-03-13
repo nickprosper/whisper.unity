@@ -2,7 +2,6 @@ using System;
 using System.Runtime.InteropServices;
 using Whisper.Native;
 using Whisper.Utils;
-using UnityEngine;
 
 namespace Whisper
 {
@@ -395,8 +394,6 @@ namespace Whisper
                  PrintRealtime = false,
                  PrintTimestamps = false
              };
-
-             param.ThreadsCount = SystemInfo.processorCount;
 
              return param;
          }
