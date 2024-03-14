@@ -214,14 +214,14 @@ namespace Whisper
         /// Start async transcription of audio clip.
         /// </summary>
         /// <returns>Full audio transcript. Null if transcription failed.</returns>
-        public async Task<WhisperResult> GetTextAsync(AudioClip clip)
+        public async Task<WhisperResult> GetTextAsync(AudioClip clip, CancellationToken token = default)
         {
             var isLoaded = await CheckIfLoaded();
             if (!isLoaded)
                 return null;
 
             UpdateParams();
-            var res = await _whisper.GetTextAsync(clip, _params);
+            var res = await _whisper.GetTextAsync(clip, _params, token);
             return res;
         }
         
@@ -232,14 +232,14 @@ namespace Whisper
         /// <param name="frequency">Audio sample rate.</param>
         /// <param name="channels">Audio channels count.</param>
         /// <returns>Full audio transcript. Null if transcription failed.</returns>
-        public async Task<WhisperResult> GetTextAsync(float[] samples, int frequency, int channels)
+        public async Task<WhisperResult> GetTextAsync(float[] samples, int frequency, int channels, CancellationToken token = default)
         {
             var isLoaded = await CheckIfLoaded();
             if (!isLoaded)
                 return null;
 
             UpdateParams();
-            var res = await _whisper.GetTextAsync(samples, frequency, channels, _params);
+            var res = await _whisper.GetTextAsync(samples, frequency, channels, _params, token);
             return res;
         }
         

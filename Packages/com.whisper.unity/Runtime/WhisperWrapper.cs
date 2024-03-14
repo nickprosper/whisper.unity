@@ -76,7 +76,7 @@ namespace Whisper
         /// Start async transcription of audio clip.
         /// </summary>
         /// <returns>Full audio transcript. Null if transcription failed.</returns>
-        public async Task<WhisperResult> GetTextAsync(AudioClip clip, WhisperParams param)
+        public async Task<WhisperResult> GetTextAsync(AudioClip clip, WhisperParams param, CancellationToken token = default)
         {
             var samples = new float[clip.samples * clip.channels];
             if (!clip.GetData(samples, 0))
@@ -87,9 +87,8 @@ namespace Whisper
 
             var frequency = clip.frequency;
             var channels = clip.channels;
-            var asyncTask = Task.Factory.StartNew(() => GetText(samples, frequency, channels, param));
+            var asyncTask = Task.Factory.StartNew(() => GetText(samples, frequency, channels, param), token);
             return await asyncTask;
-            
         }
 
         /// <summary>
@@ -164,9 +163,9 @@ namespace Whisper
         /// <param name="channels">Audio channels count.</param>
         /// <param name="param">Whisper inference parameters.</param>
         /// <returns>Full audio transcript. Null if transcription failed.</returns>
-        public async Task<WhisperResult> GetTextAsync(float[] samples, int frequency, int channels, WhisperParams param)
+        public async Task<WhisperResult> GetTextAsync(float[] samples, int frequency, int channels, WhisperParams param,  CancellationToken token = default)
         {
-            var asyncTask = Task.Factory.StartNew(() => GetText(samples, frequency, channels, param));
+            var asyncTask = Task.Factory.StartNew(() => GetText(samples, frequency, channels, param), token);
             return await asyncTask;
         }
 
